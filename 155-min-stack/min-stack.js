@@ -1,6 +1,9 @@
 
+
+
 var MinStack = function () {
-    this.arr = []
+    this.arr = [];
+    this.aux = [];
 };
 
 /** 
@@ -8,14 +11,31 @@ var MinStack = function () {
  * @return {void}
  */
 MinStack.prototype.push = function (val) {
-    this.arr.push(val)
+    // this.arr.push(val);
+    if(this.arr.length === 0){
+        this.arr.push(val)
+        this.aux.push(val);
+        return;
+    }
+
+    this.arr.push(val);
+    if(this.aux[this.aux.length - 1] >= val){
+        this.aux.push(val)
+    }
 };
 
 /**
  * @return {void}
  */
 MinStack.prototype.pop = function () {
+    // return this.arr.pop();
+    
+
+    if(this.arr[this.arr.length - 1] == this.aux[this.aux.length - 1]){
+        this.aux.pop()
+    }
     return this.arr.pop()
+
 };
 
 /**
@@ -31,14 +51,15 @@ MinStack.prototype.top = function () {
  */
 MinStack.prototype.getMin = function () {
     if (this.arr.length === 0) return -1;
-    let min = this.arr[0];
+    // let min = this.arr[0];
 
-    for(let i=1; i<this.arr.length;i++){
-        if(this.arr[i] < min){
-            min = this.arr[i]
-        }
-    }
-    return min
+    // for(let i=1; i<this.arr.length;i++){
+    //     if(this.arr[i] < min){
+    //         min = this.arr[i]
+    //     }
+    // }
+    // return min
+    return this.aux[this.aux.length - 1]
 };
 
 /** 
